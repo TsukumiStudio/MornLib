@@ -1,6 +1,4 @@
-﻿
-using MornUtil;
-#if USE_TEXTMESHPRO
+﻿#if USE_TEXTMESHPRO
 using TMPro;
 using UnityEngine.EventSystems;
 #endif
