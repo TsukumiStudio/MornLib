@@ -1,4 +1,4 @@
-﻿using MornEase;
+﻿using MornLib;
 using UnityEngine;
 
 namespace MornSwordTrail
