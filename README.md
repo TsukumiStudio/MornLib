@@ -1,44 +1,49 @@
 # MornLib
 
-現在準備中です。
-以下、随時執筆中。
+## 概要
 
-# 概要
+基本的なユーティリティ、データ構造、デザインパターン実装の統合ライブラリ。
 
-`Unity`の個人開発で頻繁に使う機能を都度更新しています。
+## 依存関係
 
-全てのコードは「**自分の開発の補助**」として作成していますが、  
-一人でも多くの方の役に立てばと思い、公開しています。
+| 種別 | 名前 |
+|------|------|
+| 外部パッケージ | VContainer, UniRx, UniTask |
+| Mornライブラリ | なし |
 
-また、本リポジトリのコードはすべて`Unlicense`の為、
-自己責任で全てご自由にお使いいただけます。
+## 使い方
 
-# 動作環境
+### シングルトン
 
-`Unity 2021.3.6`にて、全てのコードの動作を確認済です。  
-より以前の`ver`では、一部の`C#`の機能に対応していない可能性があります。
+```csharp
+public class MyClass : MornSingletonMono<MyClass>
+{
+    // 自動的にシングルトンとして機能
+}
 
-# 導入方法
-
-## 全ての機能を利用する
-
-本リポジトリを`submodule`としてプロジェクトに導入することで、全ての機能をお使い頂けます。  
-導入先が`Assets`フォルダ以下になるようご注意下さい。  
-詳しくは「[git submodule](https://www.google.com/search?q=git+submodule)」等でご確認ください。
-
-## いくつかの機能を利用する
-
-本ライブラリの各機能は`UPM`に対応しています。  
-`PackageManager`の "Add package from git URL... " で以下のURLを入力
-
-``` url
-https://github.com/matsufriends/MornLib.git?path=各機能のフォルダ名
+// アクセス
+MyClass.I.DoSomething();
 ```
 
-詳細な機能名は、各機能の`README.md`をご確認ください。
+### ステートマシン
 
----
+```csharp
+var sm = new MornStateMachine<StateType>();
+sm.ChangeState(StateType.Idle);
+```
 
-[MornEnumドキュメント](MornEnum/README.md)  
-[MornHierarchyドキュメント](MornHierarchy/README.md)  
-[MornSoundProcessorドキュメント](MornSoundProcessor/README.md)
+### オブジェクトプール
+
+```csharp
+var pool = new MornObjectPoolMono<Enemy>(prefab, parent, 10);
+var enemy = pool.Rent();
+pool.Return(enemy);
+```
+
+### その他のサブモジュール
+
+- MornDictionary: 列挙型・オブジェクト辞書
+- MornFPS: FPS計測
+- MornSwordTrail: 剣跡エフェクト
+- MornGridLayoutMono: グリッドレイアウト
+- MornTcgLayoutMono: TCGカード風レイアウト
